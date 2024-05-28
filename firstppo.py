@@ -3,9 +3,9 @@ import numpy as np
 from stable_baselines3 import PPO
 from stable_baselines3.ppo.policies import MlpPolicy
 
-env = gym.make("CartPole-v1")
+env = gym.make("Hopper-v4") # CartPole-v1
 
-model = PPO(MlpPolicy, env, verbose=0)
+model = PPO(MlpPolicy, env, verbose=1)
 
 from stable_baselines3.common.evaluation import evaluate_policy
 
@@ -13,7 +13,7 @@ mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=100, warn=
 print(f"mean_reward: {mean_reward:.2f} +/- {std_reward:.2f}")
 
 # Train the agent for 10000 steps
-model.learn(total_timesteps=20_000)
+model.learn(total_timesteps=100_000)
 
 # Evaluate the trained agent
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=100)
@@ -47,4 +47,4 @@ def record_video(env_id, model, video_length=500, prefix="", video_folder="video
     # Close the video recorder
     eval_env.close()
 
-record_video("CartPole-v1", model, video_length=500, prefix="ppo-cartpole")
+record_video("Hopper-v4", model, video_length=500, prefix="ppo-hopper")
